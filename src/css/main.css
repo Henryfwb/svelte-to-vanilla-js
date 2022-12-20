@@ -1,0 +1,152 @@
+:root {
+    /* This is where you can change the variable values */
+    /* This will be mostly colors */
+
+    --card-bg-color: white; /* card background */
+}
+
+/* general */
+
+* {
+    margin-top: unset;
+    margin-bottom: unset;
+}
+
+
+
+/* This is the div component witch houses all the launch data */
+.launches {
+    padding: 1.25rem;
+    margin-top: 1rem; /* 16px */
+}
+@media (min-width: 1536px) { /* 2xl in tailwind css */
+    .launches {
+        /* mx-64 in tailwind */
+        margin-right: 16rem;
+        margin-left: 16rem;
+    }
+}
+
+
+/* All the css for the card */
+.card {
+    display: flex;
+    width: auto;
+    overflow: hidden;
+    background-color: var(--card-bg-color);
+    border-radius: 0.5rem; /* 8px */
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.15), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    margin-bottom: 8px;
+    margin-top: 8px;
+    
+}
+
+.card-image {
+    width: 33.333333%; /* w-1/3 in tailwind css */
+    height: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.card-container {
+    width: 66.666667%; /* w-2/3 in tailwind css */
+    padding: 0.5rem; /* p-2 in tailwind css */
+}
+
+@media (min-width: 768px) { /* md in tailwind */
+    .card-container { 
+        font-size: 1.125rem; /* 18px */
+        line-height: 1.75rem; /* 28px */
+    }
+}
+
+.card-data-container {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(1, minmax(0, 1fr)); /* grid-cols-1 tailwind css */
+}
+ 
+
+.card-title {
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.card-rocket-status {
+    display: flex;
+    justify-content: center;
+}
+
+.card-rocket-status span {
+    display: flex;
+    align-items: center; /* items-center tailwind css */
+    justify-content: center;
+    height: 6px;
+    padding: 0.25rem; /* 4px */
+    font-size: 1rem; /* 16px */
+    line-height: 1.5rem; /* 24px */
+    color: white;
+    background-color: rgb(34 197 94);
+    border-radius: 9999px;
+}
+
+.noStream {
+    padding-top: 0.5rem; /* 8px */
+    padding-bottom: 0.5rem; /* 8px */
+    text-align: center;
+}
+
+.launch-info {
+    margin-bottom: 0.25rem; /* 4px */
+}
+
+.launch-info h6 {
+    font-size: 1rem; /* 16px */
+    line-height: 1.5rem; /* 24px */
+    text-align: center;
+}
+
+.countdown-timer {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(8, minmax(0, 1fr)); /* grid-cols-8 tailwind css */
+    font-size: 1.875rem; /* 30px */
+    line-height: 2.25rem; /* 36px */
+    text-align: center;
+    color: rgb(31 41 55);
+    grid-template-rows: repeat(2, minmax(0, 1fr)); /* grid-rows-2 tailwind css */
+}
+
+.countdown-timer p {
+    grid-row-start: 2;
+    font-size: 0.75rem; /* 12px */
+    line-height: 1rem; /* 16px */
+    text-align: center;
+    height: auto;
+}
+
+.description {
+    font-size: 1.5rem;
+    text-align: left;
+    /* my-2 tailwind */
+    margin-top: 0.5rem; /* 8px */
+    margin-bottom: 0.5rem; /* 8px */
+}
+
+a {
+    color: rgb(59 130 246);
+}
+
+.rocket-date {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem; /* 16px */
+    margin-bottom: 0.5rem; /* 8px */
+}
+
+.rocket-date h6 {
+    font-size: 1rem; /* 16px */
+    line-height: 1.5rem; /* 24px */
+}
