@@ -84,7 +84,7 @@
     align-items: center; /* items-center tailwind css */
     justify-content: center;
     height: 6px;
-    padding: 0.25rem; /* 4px */
+    padding: 7px;
     font-size: 1rem; /* 16px */
     line-height: 1.5rem; /* 24px */
     color: white;

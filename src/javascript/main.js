@@ -103,7 +103,15 @@ function makeCard({ img, title, status, organization, LPLocation, description, v
   launches.appendChild(card);
 
   // Start the timer
-  setInterval(() => updateCountdown(date + " " + time, countdownDays, countdownHours, countdownMinutes, countdownSeconds), 1000)
+  var countDownDate = new Date(date + " " + time).getTime();
+  var now = new Date().getTime();
+  var distance = countDownDate - now;
+  // If not launched update timer
+  if (distance > 0) {
+    setInterval(() => updateCountdown(countDownDate, countdownDays, countdownHours, countdownMinutes, countdownSeconds), 1000)
+  } else {
+    launched(countdown);
+  }
 }
 
 function createAndList(type, className) {
@@ -112,10 +120,19 @@ function createAndList(type, className) {
   return element;
 }
 
+function launched(countdowntimer) {
+    countdowntimer.childNodes.forEach(child => {
+      child.style.display = "none";
+    })
+    const text = document.createElement("h2");
+    text.innerHTML = "LAUNCHED!";
+    text.style.textAlign = "center";
+    countdowntimer.style.display = "flex";
+    countdowntimer.appendChild(text)
+}
 
 function updateCountdown(date, edays, ehours, eminutes, eseconds) {
-  var countDownDate = new Date(date).getTime();
-  // Get today's date and time
+  var countDownDate = date;
   var now = new Date().getTime();
 
   // Find the distance between now and the count down date
@@ -127,14 +144,7 @@ function updateCountdown(date, edays, ehours, eminutes, eseconds) {
   if (distance < 0) {
     // timer done do smth
     const countdowntimer = edays.parentElement;
-    countdowntimer.childNodes.forEach(child => {
-      child.style.display = "none";
-    })
-    const text = document.createElement("h2");
-    text.innerHTML = "LAUNCHED!";
-    text.style.textAlign = "center";
-    countdowntimer.style.display = "flex";
-    countdowntimer.appendChild(text)
+    launched(countdowntimer)
     return;
   }
 
@@ -157,12 +167,18 @@ function updateCountdown(date, edays, ehours, eminutes, eseconds) {
 // Run this function to reload the "cards" won't delete them yet
 
 async function reload() {
-  const data = await getData();
+  // remove existing cards
+  // for some reason this function doesnt remove them all
+  removeChildren("launches");
+  removeChildren("launches");
+  removeChildren("launches");
+  removeChildren("launches");
 
+  const data = await getData();
   data.forEach(element => {
     makeCard({
       "img": element.image, videoURL: element.vidURLs[0],
-      "description": element.mission.description,
+      "description": element.mission ? element.mission.description : "",
       "date": convertDate(element.net),
       "time": convertTime(element.net),
       "LPLocation": element.pad.name,
@@ -171,14 +187,22 @@ async function reload() {
       "title": element.name
     });
   });
-  
 }
 
-reload()
+reload();
+
+function removeChildren(id) {
+  const launch = document.getElementById(id);
+  launch.childNodes.forEach(child => {
+    // child.style.display = "none";
+    launch.removeChild(child)
+  })
+}
 
 async function getData() {
   // Launch Library API https://ll.thespacedevs.com/2.2.0/launch/upcoming/
-  const apiUrl = `https://ll.thespacedevs.com/2.2.0/launch/upcoming/?format=json&limit=1&mode=detailed&status__ids=1`;
+  const limit = 12; // Null means no limit
+  const apiUrl = `https://ll.thespacedevs.com/2.2.0/launch/upcoming/?format=json&${limit ? "limit=" + limit : ""}&mode=detailed`;
   try {
     const response = await fetch(apiUrl, {
       headers: {
