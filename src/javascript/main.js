@@ -3,6 +3,13 @@ var countDownDate = new Date("Dec 20, 2022 7:59:00").getTime();
 
 
 function makeCard({ img, title, status, organization, LPLocation, description, videoURL=null, date, time }) {
+
+  // Comment out the if statement if you want to show the card when the rocket was allready launched
+  var countDownDate = new Date(date + " " + time).getTime();
+  var now = new Date().getTime();
+  var distance = countDownDate - now;
+  if (distance < 0) return; 
+
   // Create all the needed items for the card using a helper function
   var card = createAndList("div", "card");
   var image = createAndList("div", "card-image");
@@ -103,9 +110,6 @@ function makeCard({ img, title, status, organization, LPLocation, description, v
   launches.appendChild(card);
 
   // Start the timer
-  var countDownDate = new Date(date + " " + time).getTime();
-  var now = new Date().getTime();
-  var distance = countDownDate - now;
   // If not launched update timer
   if (distance > 0) {
     setInterval(() => updateCountdown(countDownDate, countdownDays, countdownHours, countdownMinutes, countdownSeconds), 1000)
@@ -124,11 +128,11 @@ function launched(countdowntimer) {
     countdowntimer.childNodes.forEach(child => {
       child.style.display = "none";
     })
-    const text = document.createElement("h2");
+    const text = document.createElement("h3");
     text.innerHTML = "LAUNCHED!";
     text.style.textAlign = "center";
     countdowntimer.style.display = "flex";
-    countdowntimer.appendChild(text)
+    countdowntimer.appendChild(text);
 }
 
 function updateCountdown(date, edays, ehours, eminutes, eseconds) {
