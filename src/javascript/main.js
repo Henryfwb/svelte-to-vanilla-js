@@ -181,7 +181,7 @@ async function reload() {
   const data = await getData();
   const test = document.getElementById("test");
   data.forEach(element => {
-    test.innerHTML += element
+    test.innerHTML += convertDate(element.net) + " " + convertTime(element.net) + "|||"
     makeCard({
       "img": element.image, videoURL: element.vidURLs[0],
       "description": element.mission ? element.mission.description : "",
