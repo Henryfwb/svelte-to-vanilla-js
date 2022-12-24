@@ -179,7 +179,9 @@ async function reload() {
   removeChildren("launches");
 
   const data = await getData();
+  const test = document.getElementById("test");
   data.forEach(element => {
+    test.innerHTML += element
     makeCard({
       "img": element.image, videoURL: element.vidURLs[0],
       "description": element.mission ? element.mission.description : "",
